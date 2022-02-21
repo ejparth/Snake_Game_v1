@@ -2,13 +2,18 @@
 from turtle import Screen, Turtle
 
 START_POS = [(0, 0), (-20, 0), (-40, 0)]
-
+UP = 90
+DOWN = 270
+LEFT = 180
+RIGHT = 0
 
 class Snake:
 
-    def _self_(self=None):
+    def __init__(self):
         self.segments = []
         self.create_snake()
+        self.head = self.segments[0] #it's used again and again
+
 
     def create_snake(self):
         for position in START_POS:
@@ -31,3 +36,23 @@ class Snake:
             new_y = self.segments[snake_body_parts - 1].ycor()
             self.segments[snake_body_parts].goto(new_x, new_y)
         self.segments[0].forward(20)
+
+    def up(self):
+        if self.head.heading() != DOWN:
+            self.segments[0].setheading(UP)
+            self.move()
+
+    def down(self):
+        if self.head.heading() != UP:
+            self.segments[0].setheading(DOWN)
+            self.move()
+
+    def left(self):
+        if self.head.heading() != RIGHT:
+            self.segments[0].setheading(LEFT)
+            self.move()
+
+    def right(self):
+        if self.head.heading() != LEFT:
+            self.segments[0].setheading(RIGHT)
+            self.move()

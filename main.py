@@ -13,10 +13,17 @@ game_on = False
 
 snaky = Snake()
 
+screen.listen()
+screen.onkey(snaky.up, "Up")
+screen.onkey(snaky.down, "Down")
+screen.onkey(snaky.right, "Right")
+screen.onkey(snaky.left, "Left")
+
+
 
 while not game_on:
     screen.update()
     time.sleep(0.1)
-
+    snaky.move()
 
 screen.exitonclick()
