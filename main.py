@@ -1,5 +1,7 @@
-from turtle import Screen, Turtle
+from turtle import Screen
+from food import Food
 from snake import Snake
+from Scoreboard import Score
 import time
 
 screen = Screen()
@@ -9,9 +11,11 @@ screen.title("Snake Game")
 
 
 screen.tracer(0)
-game_on = False
+game_on = False  # for the while loop
 
 snaky = Snake()
+foody = Food()
+sb = Score()
 
 screen.listen()
 screen.onkey(snaky.up, "Up")
@@ -19,11 +23,28 @@ screen.onkey(snaky.down, "Down")
 screen.onkey(snaky.right, "Right")
 screen.onkey(snaky.left, "Left")
 
-
-
 while not game_on:
     screen.update()
     time.sleep(0.1)
     snaky.move()
+
+    if snaky.head.distance(foody) <= 15:
+        foody.refresh()
+        sb.score_increase()
+        snaky.tail()
+
+    if snaky.head.xcor() > 280 or snaky.head.xcor() < -280 or snaky.head.ycor() > 280 or snaky.head.ycor() < -280:
+        game_on = True
+        sb.gameover()
+
+    # to check whether the head touched the tail
+    # Game over
+    # but don't check the first head
+
+    for parts in snaky.segments[1:]:
+        if snaky.head.distance(parts) < 10:
+            game_on = True
+            sb.gameover()
+
 
 screen.exitonclick()

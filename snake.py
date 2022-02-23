@@ -7,20 +7,27 @@ DOWN = 270
 LEFT = 180
 RIGHT = 0
 
+
 class Snake:
 
     def __init__(self):
         self.segments = []
         self.create_snake()
-        self.head = self.segments[0] #it's used again and again
-
+        self.head = self.segments[0]  # it's used again and again
 
     def create_snake(self):
         for position in START_POS:
-            tim = Turtle("square")
-            tim.penup()
-            tim.goto(position)
-            self.segments.append(tim)  # Update the object with positions in the list
+            self.extend_snake(position)
+
+    def extend_snake(self, position):
+
+        tim = Turtle("square")
+        tim.penup()
+        tim.goto(position)
+        self.segments.append(tim)  # Update the object with positions in the list
+
+    def tail(self):
+        self.extend_snake(self.segments[-1].position())
 
     def move(self):
 
